@@ -42,8 +42,7 @@ export class TeleFlowApi implements ICredentialType {
 		type: 'generic',
 		properties: {
 			headers: {
-				'Authorization': '=Bearer {{$credentials.apiKey}}',
-				'X-Tenant-ID': '={{$credentials.tenantId}}',
+				'Authorization': 'Bearer {{$credentials.apiKey}}'
 			},
 		},
 	};

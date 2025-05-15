@@ -29,6 +29,7 @@ export class TeleFlow implements INodeType {
 			},
 		],
 		requestDefaults: {
+			baseURL: '={{ $credentials.baseUrl }}',
 			headers: {
 				'Content-Type': 'application/json',
 				Accept: 'application/json',
@@ -159,6 +160,7 @@ export class TeleFlow implements INodeType {
 					},
 				],
 				default: 'account',
+				description: 'Resource to perform operations on',
 			},
 			...resourceOperations,
 			...resourceFields,
@@ -170,84 +172,151 @@ export class TeleFlow implements INodeType {
 		const returnData: INodeExecutionData[] = [];
 		const resource = this.getNodeParameter('resource', 0) as string;
 		const operation = this.getNodeParameter('operation', 0) as string;
-		const credentials = await this.getCredentials('teleFlowApi');
-		const baseUrl = credentials.baseUrl as string;
 
 		for (let i = 0; i < items.length; i++) {
 			try {
-				if (resource === 'account') {
-					if (operation === 'create') {
-						const name = this.getNodeParameter('name', i) as string;
-						const requestConfig = {
-							method: 'POST' as const,
-							url: `${baseUrl}/accounts`,
-							body: { name },
-						};
-						const response = await this.helpers.httpRequestWithAuthentication.call(this, 'teleFlowApi', requestConfig);
-						returnData.push({ json: response });
+				// Get common parameters and build endpoint
+				const endpoint = `/${resource}s`;
+
+				if (operation === 'create') {
+					// Handle all resources create operations
+					const body = {};
+
+					// Get specific fields for the resource
+					if (resource === 'account') {
+						Object.assign(body, {
+							name: this.getNodeParameter('name', i) as string,
+						});
+					} else if (resource === 'device') {
+						Object.assign(body, {
+							name: this.getNodeParameter('name', i) as string,
+							type: this.getNodeParameter('type', i) as string,
+						});
+					} else if (resource === 'phoneNumber') {
+						Object.assign(body, {
+							number: this.getNodeParameter('number', i) as string,
+							type: this.getNodeParameter('type', i) as string,
+						});
+					} else if (resource === 'sipTrunk') {
+						Object.assign(body, {
+							name: this.getNodeParameter('name', i) as string,
+							host: this.getNodeParameter('host', i) as string,
+						});
+					} else if (resource === 'user') {
+						Object.assign(body, {
+							username: this.getNodeParameter('username', i) as string,
+							email: this.getNodeParameter('email', i) as string,
+						});
+					} else if (resource === 'tenant') {
+						Object.assign(body, {
+							name: this.getNodeParameter('name', i) as string,
+						});
 					}
-					if (operation === 'get') {
-						const id = this.getNodeParameter('id', i) as string;
-						if (!id) {
-							throw new NodeOperationError(this.getNode(), 'ID is required for get operation');
-						}
-						const fields = this.getNodeParameter('fields', i) as { field: { name: string; value: string }[] } | undefined;
-						const qs: Record<string, string> = {};
-						if (fields?.field) {
-							fields.field.forEach((field) => {
-								qs[field.name] = field.value;
-							});
-						}
-						const requestConfig = {
-							method: 'GET' as const,
-							url: `${baseUrl}/accounts/${id}`,
-							qs,
-						};
-						const response = await this.helpers.httpRequestWithAuthentication.call(this, 'teleFlowApi', requestConfig);
-						returnData.push({ json: response });
+
+					const response = await this.helpers.httpRequest({
+						method: 'POST',
+						url: endpoint,
+						body,
+					});
+
+					returnData.push({ json: response });
+				} else if (operation === 'get') {
+					const id = this.getNodeParameter('id', i) as string;
+					if (!id) {
+						throw new NodeOperationError(this.getNode(), 'ID is required for get operation');
 					}
-					if (operation === 'getAll') {
-						const fields = this.getNodeParameter('fields', i) as { field: { name: string; value: string }[] } | undefined;
-						const qs: Record<string, string> = {};
-						if (fields?.field) {
-							fields.field.forEach((field) => {
-								qs[field.name] = field.value;
-							});
-						}
-						const requestConfig = {
-							method: 'GET' as const,
-							url: `${baseUrl}/accounts`,
-							qs,
-						};
-						const response = await this.helpers.httpRequestWithAuthentication.call(this, 'teleFlowApi', requestConfig);
-						returnData.push({ json: response });
+
+					const fields = this.getNodeParameter('fields', i) as { field: { name: string; value: string }[] } | undefined;
+					const qs: Record<string, string> = {};
+
+					if (fields?.field) {
+						fields.field.forEach((field) => {
+							qs[field.name] = field.value;
+						});
 					}
-					if (operation === 'update') {
-						const id = this.getNodeParameter('id', i) as string;
-						if (!id) {
-							throw new NodeOperationError(this.getNode(), 'ID is required for update operation');
-						}
-						const name = this.getNodeParameter('name', i) as string;
-						const requestConfig = {
-							method: 'PUT' as const,
-							url: `${baseUrl}/accounts/${id}`,
-							body: { name },
-						};
-						const response = await this.helpers.httpRequestWithAuthentication.call(this, 'teleFlowApi', requestConfig);
-						returnData.push({ json: response });
+
+					const response = await this.helpers.httpRequest({
+						method: 'GET',
+						url: `${endpoint}/${id}`,
+						qs,
+					});
+
+					returnData.push({ json: response });
+				} else if (operation === 'getAll') {
+					const fields = this.getNodeParameter('fields', i) as { field: { name: string; value: string }[] } | undefined;
+					const qs: Record<string, string> = {};
+
+					if (fields?.field) {
+						fields.field.forEach((field) => {
+							qs[field.name] = field.value;
+						});
 					}
-					if (operation === 'delete') {
-						const id = this.getNodeParameter('id', i) as string;
-						if (!id) {
-							throw new NodeOperationError(this.getNode(), 'ID is required for delete operation');
-						}
-						const requestConfig = {
-							method: 'DELETE' as const,
-							url: `${baseUrl}/accounts/${id}`,
-						};
-						const response = await this.helpers.httpRequestWithAuthentication.call(this, 'teleFlowApi', requestConfig);
-						returnData.push({ json: response });
+
+					const response = await this.helpers.httpRequest({
+						method: 'GET',
+						url: endpoint,
+						qs,
+					});
+
+					returnData.push({ json: response });
+				} else if (operation === 'update') {
+					const id = this.getNodeParameter('id', i) as string;
+					if (!id) {
+						throw new NodeOperationError(this.getNode(), 'ID is required for update operation');
 					}
+
+					const body = {};
+
+					// Get specific fields for the resource
+					if (resource === 'account') {
+						Object.assign(body, {
+							name: this.getNodeParameter('name', i) as string,
+						});
+					} else if (resource === 'device') {
+						Object.assign(body, {
+							name: this.getNodeParameter('name', i) as string,
+							type: this.getNodeParameter('type', i) as string,
+						});
+					} else if (resource === 'phoneNumber') {
+						Object.assign(body, {
+							number: this.getNodeParameter('number', i) as string,
+							type: this.getNodeParameter('type', i) as string,
+						});
+					} else if (resource === 'sipTrunk') {
+						Object.assign(body, {
+							name: this.getNodeParameter('name', i) as string,
+							host: this.getNodeParameter('host', i) as string,
+						});
+					} else if (resource === 'user') {
+						Object.assign(body, {
+							username: this.getNodeParameter('username', i) as string,
+							email: this.getNodeParameter('email', i) as string,
+						});
+					} else if (resource === 'tenant') {
+						Object.assign(body, {
+							name: this.getNodeParameter('name', i) as string,
+						});
+					}
+
+					const response = await this.helpers.httpRequest({
+						method: 'PUT',
+						url: `${endpoint}/${id}`,
+						body,
+					});
+
+					returnData.push({ json: response });
+				} else if (operation === 'delete') {
+					const id = this.getNodeParameter('id', i) as string;
+					if (!id) {
+						throw new NodeOperationError(this.getNode(), 'ID is required for delete operation');
+					}
+
+					const response = await this.helpers.httpRequest({
+						method: 'DELETE',
+						url: `${endpoint}/${id}`,
+					});
+
+					returnData.push({ json: response });
 				}
 			} catch (error) {
 				LoggerProxy.error(`Error: ${error.message}`);

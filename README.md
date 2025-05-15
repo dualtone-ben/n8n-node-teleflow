@@ -1,176 +1,97 @@
-# n8n-nodes-teleflow
+# n8n-node-teleflow
 
-![TeleFlow Logo](./nodes/TeleFlow/teleflow.svg)
+This is an n8n community node for integrating with the TeleFlow API. It allows you to interact with various TeleFlow resources like accounts, devices, phone numbers, and more directly from your n8n workflows.
 
-This is an n8n community node for integrating with the TeleFlow API. It provides nodes for managing telephony resources, VoIP services, and other TeleFlow platform features.
+[n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
-## Features
-
-- Manage TeleFlow accounts and users
-- Handle phone numbers and devices
-- Configure SIP trunks and carriers
-- Manage voice mail and call recordings
-- Access billing and reporting features
-- And much more!
+[TeleFlow](https://teleflow.app/) is a platform that provides telecommunications services and APIs.
 
 ## Installation
 
-Follow these steps to install the node:
+Follow these steps to install this node:
 
-1. Go to your n8n root directory
-2. Run the following command:
-```bash
-npm install n8n-nodes-teleflow
+### Local Installation
+
+1. Go to the n8n community nodes directory:
+   ```
+   cd ~/.n8n/custom
+   ```
+
+2. Clone this repository:
+   ```
+   git clone https://github.com/yourusername/n8n-node-teleflow.git
+   ```
+
+3. Build the code:
+   ```
+   cd n8n-node-teleflow
+   npm install
+   npm run build
+   ```
+
+4. Restart n8n
+
+### Using npm
+
 ```
-3. Restart n8n
+npm install n8n-node-teleflow
+```
 
-## Prerequisites
+## Features
 
-- n8n instance
-- Node.js version 20.15 or higher
-- TeleFlow API credentials
+This node provides operations for the following TeleFlow resources:
 
-## Authentication
+- Account
+- Device
+- Phone Number
+- SIP Trunk
+- User
+- Tenant
+- And many more...
 
-To use this node, you'll need to set up your TeleFlow API credentials. You can get these from your TeleFlow account dashboard.
+### Operations
 
-### Required Credentials
+For each resource, the following operations are available:
 
-1. **API Key**: Your TeleFlow API key
-   - This is used as a Bearer token for authentication
-   - Can be found in your TeleFlow account settings
+- Create
+- Get
+- Get Many
+- Update
+- Delete
 
-2. **Base URL**: The base URL for the TeleFlow API
-   - Default: `https://api.teleflow.app`
-   - Can be customized for different environments
+## Credentials
 
-3. **Tenant ID** (Optional): For multi-tenant environments
-   - Only required if you're working with multiple tenants
-   - Can be found in your TeleFlow account settings
+To use this node, you need to have a TeleFlow account and obtain an API key. 
 
-## Usage
+1. In the n8n workflow editor, click on "Credentials" in the left panel
+2. Click on "Create New"
+3. Search for "TeleFlow API"
+4. Enter your API key, base URL, and optional tenant ID
+5. Save the credentials
 
-After installation, you'll find the TeleFlow node in the n8n node panel. The node supports the following operations:
+## Usage Examples
 
-### Basic Operations
-- Create new resources
-- Read/Get resource details
-- Update existing resources
-- Delete resources
-- List multiple resources
+### Create a new account
 
-### Resource Management
-- **Accounts**: Create and manage TeleFlow accounts
-- **Users**: Handle user creation and management
-- **Devices**: Configure and manage telephony devices
-- **Phone Numbers**: Manage phone number assignments
-- **SIP Trunks**: Configure VoIP connections
-- **Billing**: Access billing information and reports
+1. Add the TeleFlow node to your workflow
+2. Select "Account" as the resource
+3. Select "Create" as the operation
+4. Enter the required information
+5. Run the workflow
 
-### Example Workflows
-1. **Account Creation**
-   - Create a new TeleFlow account
-   - Assign phone numbers
-   - Configure SIP trunks
-   - Set up users
+### Get a device by ID
 
-2. **Call Management**
-   - Monitor call records
-   - Handle voice mail
-   - Process call transcriptions
-
-3. **Billing Automation**
-   - Generate billing reports
-   - Process billing entries
-   - Monitor usage
+1. Add the TeleFlow node to your workflow
+2. Select "Device" as the resource
+3. Select "Get" as the operation
+4. Enter the device ID
+5. Run the workflow
 
 ## Resources
 
-The node supports the following TeleFlow resources:
-
-- Account
-- Account Audit
-- Billing Entry
-- Call Detail Record
-- Carrier
-- Device
-- Device Template
-- Email Template
-- Feature Code
-- File
-- Flow
-- Flow Template
-- LCR
-- Mobile SIM
-- Number Port
-- Phone Number
-- Provision
-- Report
-- Reseller
-- SIP Trunk
-- Tariff
-- Tariff Code
-- Tariff Profile
-- Tenant
-- Tenant Audit
-- Transcription
-- User
-- Voice
-- Voice Mail Message
-
-## Development
-
-To contribute to this project:
-
-1. Clone the repository
-2. Install dependencies:
-```bash
-npm install
-```
-3. Build the project:
-```bash
-npm run build
-```
-4. Run tests:
-```bash
-npm test
-```
-
-### Local Development
-For local development and testing:
-1. Link the package:
-```bash
-npm link
-```
-2. In your n8n installation:
-```bash
-npm link n8n-nodes-teleflow
-```
-3. Restart n8n
-
-## Troubleshooting
-
-Common issues and solutions:
-
-1. **Authentication Errors**
-   - Verify your API key is correct
-   - Check if the API key has proper permissions
-   - Ensure the base URL is correct
-
-2. **Connection Issues**
-   - Verify network connectivity
-   - Check if the TeleFlow API is accessible
-   - Validate tenant ID if using multi-tenant setup
-
-3. **Resource Not Found**
-   - Verify resource IDs
-   - Check if you have proper permissions
-   - Ensure the resource exists in your tenant
+- [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
+- [TeleFlow API documentation](https://docs.teleflow.app)
 
 ## License
 
 [MIT](LICENSE.md)
-
-## Support
-
-For support, please open an issue in the [GitHub repository](https://github.com/dualtone-ben/n8n-nodes-teleflow).

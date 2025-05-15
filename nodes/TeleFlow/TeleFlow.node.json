@@ -2,11 +2,11 @@
 	"node": "n8n-nodes-base.TeleFlow",
 	"nodeVersion": "1.0",
 	"codexVersion": "1.0",
-	"categories": ["Development"],
+	"categories": ["Communication", "Productivity"],
 	"resources": {
 		"credentialDocumentation": [
 			{
-				"url": "https://docs.teleflow.app"
+				"url": "https://docs.teleflow.app/api/authentication"
 			}
 		],
 		"primaryDocumentation": [

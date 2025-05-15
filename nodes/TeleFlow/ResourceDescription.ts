@@ -121,6 +121,7 @@ const baseFields: INodeProperties[] = [
 			},
 		},
 		description: 'The ID of the resource to get',
+		hint: 'Enter the unique identifier of the resource',
 	},
 	{
 		displayName: 'Fields',
@@ -128,6 +129,7 @@ const baseFields: INodeProperties[] = [
 		type: 'fixedCollection',
 		default: {},
 		description: 'Fields to include in the request',
+		hint: 'Add field-value pairs for more specific queries',
 		typeOptions: {
 			multipleValues: true,
 		},
@@ -171,6 +173,18 @@ const resourceSpecificFields: { [key: string]: INodeProperties[] } = {
 				},
 			},
 			description: 'Name of the account',
+			hint: 'Enter a descriptive name for this account',
+		},
+		{
+			displayName: 'Additional Details',
+			name: 'additionalDetails',
+			type: 'notice',
+			default: '',
+			displayOptions: {
+				show: {
+					resource: ['account'],
+				},
+			},
 		},
 	],
 	device: [
@@ -187,6 +201,7 @@ const resourceSpecificFields: { [key: string]: INodeProperties[] } = {
 				},
 			},
 			description: 'Name of the device',
+			hint: 'Enter a unique device name',
 		},
 		{
 			displayName: 'Type',
@@ -227,6 +242,7 @@ const resourceSpecificFields: { [key: string]: INodeProperties[] } = {
 				},
 			},
 			description: 'Phone number',
+			hint: 'Enter in E.164 format (e.g., +12125551234)',
 		},
 		{
 			displayName: 'Type',
@@ -267,6 +283,7 @@ const resourceSpecificFields: { [key: string]: INodeProperties[] } = {
 				},
 			},
 			description: 'Name of the SIP trunk',
+			hint: 'Enter a unique name for this SIP trunk',
 		},
 		{
 			displayName: 'Host',
@@ -281,6 +298,7 @@ const resourceSpecificFields: { [key: string]: INodeProperties[] } = {
 				},
 			},
 			description: 'Host of the SIP trunk',
+			hint: 'Enter the hostname or IP address',
 		},
 	],
 	user: [
@@ -297,6 +315,7 @@ const resourceSpecificFields: { [key: string]: INodeProperties[] } = {
 				},
 			},
 			description: 'Username of the user',
+			hint: 'Enter a unique username',
 		},
 		{
 			displayName: 'Email',
@@ -312,6 +331,7 @@ const resourceSpecificFields: { [key: string]: INodeProperties[] } = {
 				},
 			},
 			description: 'Email of the user',
+			hint: 'Enter a valid email address',
 		},
 	],
 	tenant: [
@@ -328,6 +348,7 @@ const resourceSpecificFields: { [key: string]: INodeProperties[] } = {
 				},
 			},
 			description: 'Name of the tenant',
+			hint: 'Enter a descriptive name for this tenant',
 		},
 	],
 };

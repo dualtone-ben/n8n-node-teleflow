@@ -1,6 +1,6 @@
-![Banner image](https://user-images.githubusercontent.com/10284570/173569848-c624317f-42b1-45a6-ab09-f0ea3c247648.png)
-
 # n8n-nodes-teleflow
+
+![TeleFlow Logo](nodes/TeleFlow/teleflow.svg)
 
 This is an n8n community node for integrating with the TeleFlow API. It provides nodes for managing telephony resources, VoIP services, and other TeleFlow platform features.
 
@@ -34,16 +34,55 @@ npm install n8n-nodes-teleflow
 
 To use this node, you'll need to set up your TeleFlow API credentials. You can get these from your TeleFlow account dashboard.
 
+### Required Credentials
+
+1. **API Key**: Your TeleFlow API key
+   - This is used as a Bearer token for authentication
+   - Can be found in your TeleFlow account settings
+
+2. **Base URL**: The base URL for the TeleFlow API
+   - Default: `https://api.teleflow.com/v1`
+   - Can be customized for different environments
+
+3. **Tenant ID** (Optional): For multi-tenant environments
+   - Only required if you're working with multiple tenants
+   - Can be found in your TeleFlow account settings
+
 ## Usage
 
 After installation, you'll find the TeleFlow node in the n8n node panel. The node supports the following operations:
 
-- Create, read, update, and delete resources
-- Manage accounts and users
-- Handle phone numbers and devices
-- Configure SIP trunks
-- Access billing information
-- Generate reports
+### Basic Operations
+- Create new resources
+- Read/Get resource details
+- Update existing resources
+- Delete resources
+- List multiple resources
+
+### Resource Management
+- **Accounts**: Create and manage TeleFlow accounts
+- **Users**: Handle user creation and management
+- **Devices**: Configure and manage telephony devices
+- **Phone Numbers**: Manage phone number assignments
+- **SIP Trunks**: Configure VoIP connections
+- **Billing**: Access billing information and reports
+
+### Example Workflows
+1. **Account Creation**
+   - Create a new TeleFlow account
+   - Assign phone numbers
+   - Configure SIP trunks
+   - Set up users
+
+2. **Call Management**
+   - Monitor call records
+   - Handle voice mail
+   - Process call transcriptions
+
+3. **Billing Automation**
+   - Generate billing reports
+   - Process billing entries
+   - Monitor usage
 
 ## Resources
 
@@ -96,6 +135,37 @@ npm run build
 ```bash
 npm test
 ```
+
+### Local Development
+For local development and testing:
+1. Link the package:
+```bash
+npm link
+```
+2. In your n8n installation:
+```bash
+npm link n8n-nodes-teleflow
+```
+3. Restart n8n
+
+## Troubleshooting
+
+Common issues and solutions:
+
+1. **Authentication Errors**
+   - Verify your API key is correct
+   - Check if the API key has proper permissions
+   - Ensure the base URL is correct
+
+2. **Connection Issues**
+   - Verify network connectivity
+   - Check if the TeleFlow API is accessible
+   - Validate tenant ID if using multi-tenant setup
+
+3. **Resource Not Found**
+   - Verify resource IDs
+   - Check if you have proper permissions
+   - Ensure the resource exists in your tenant
 
 ## License
 

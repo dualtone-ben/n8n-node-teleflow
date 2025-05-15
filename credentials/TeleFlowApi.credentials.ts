@@ -10,8 +10,8 @@ export class TeleFlowApi implements ICredentialType {
 	documentationUrl = 'https://docs.teleflow.app';
 	properties: INodeProperties[] = [
 		{
-			displayName: 'API Key',
-			name: 'apiKey',
+			displayName: 'Auth Token',
+			name: 'authToken',
 			type: 'string',
 			typeOptions: {
 				password: true,
@@ -42,8 +42,7 @@ export class TeleFlowApi implements ICredentialType {
 		type: 'generic',
 		properties: {
 			headers: {
-				'Accept': 'application/json, text/plain, */*',
-				'Authorization': 'Bearer {{$credentials.apiKey}}'
+				'Authorization': '=Bearer {{$credentials.authToken}}'
 			},
 		},
 	};

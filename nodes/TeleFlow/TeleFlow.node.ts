@@ -179,16 +179,11 @@ export class TeleFlow implements INodeType {
 					if (operation === 'create') {
 						const name = this.getNodeParameter('name', i) as string;
 						const requestConfig = {
-							method: 'POST',
+							method: 'POST' as const,
 							url: `${baseUrl}/accounts`,
 							body: { name },
-							headers: {
-								'Authorization': `Bearer ${credentials.apiKey}`,
-							},
 						};
-						LoggerProxy.debug(`Request Config: ${JSON.stringify(requestConfig, null, 2)}`);
-						const response = await this.helpers.request(requestConfig);
-						LoggerProxy.debug(`Response: ${JSON.stringify(response, null, 2)}`);
+						const response = await this.helpers.httpRequestWithAuthentication.call(this, 'teleFlowApi', requestConfig);
 						returnData.push({ json: response });
 					}
 					if (operation === 'get') {
@@ -204,16 +199,11 @@ export class TeleFlow implements INodeType {
 							});
 						}
 						const requestConfig = {
-							method: 'GET',
+							method: 'GET' as const,
 							url: `${baseUrl}/accounts/${id}`,
-							headers: {
-								'Authorization': `Bearer ${credentials.apiKey}`,
-							},
 							qs,
 						};
-						LoggerProxy.debug(`Request Config: ${JSON.stringify(requestConfig, null, 2)}`);
-						const response = await this.helpers.request(requestConfig);
-						LoggerProxy.debug(`Response: ${JSON.stringify(response, null, 2)}`);
+						const response = await this.helpers.httpRequestWithAuthentication.call(this, 'teleFlowApi', requestConfig);
 						returnData.push({ json: response });
 					}
 					if (operation === 'getAll') {
@@ -225,16 +215,11 @@ export class TeleFlow implements INodeType {
 							});
 						}
 						const requestConfig = {
-							method: 'GET',
+							method: 'GET' as const,
 							url: `${baseUrl}/accounts`,
-							headers: {
-								'Authorization': `Bearer ${credentials.apiKey}`,
-							},
 							qs,
 						};
-						LoggerProxy.debug(`Request Config: ${JSON.stringify(requestConfig, null, 2)}`);
-						const response = await this.helpers.request(requestConfig);
-						LoggerProxy.debug(`Response: ${JSON.stringify(response, null, 2)}`);
+						const response = await this.helpers.httpRequestWithAuthentication.call(this, 'teleFlowApi', requestConfig);
 						returnData.push({ json: response });
 					}
 					if (operation === 'update') {
@@ -244,16 +229,11 @@ export class TeleFlow implements INodeType {
 						}
 						const name = this.getNodeParameter('name', i) as string;
 						const requestConfig = {
-							method: 'PUT',
+							method: 'PUT' as const,
 							url: `${baseUrl}/accounts/${id}`,
 							body: { name },
-							headers: {
-								'Authorization': `Bearer ${credentials.apiKey}`,
-							},
 						};
-						LoggerProxy.debug(`Request Config: ${JSON.stringify(requestConfig, null, 2)}`);
-						const response = await this.helpers.request(requestConfig);
-						LoggerProxy.debug(`Response: ${JSON.stringify(response, null, 2)}`);
+						const response = await this.helpers.httpRequestWithAuthentication.call(this, 'teleFlowApi', requestConfig);
 						returnData.push({ json: response });
 					}
 					if (operation === 'delete') {
@@ -262,15 +242,10 @@ export class TeleFlow implements INodeType {
 							throw new NodeOperationError(this.getNode(), 'ID is required for delete operation');
 						}
 						const requestConfig = {
-							method: 'DELETE',
+							method: 'DELETE' as const,
 							url: `${baseUrl}/accounts/${id}`,
-							headers: {
-								'Authorization': `Bearer ${credentials.apiKey}`,
-							},
 						};
-						LoggerProxy.debug(`Request Config: ${JSON.stringify(requestConfig, null, 2)}`);
-						const response = await this.helpers.request(requestConfig);
-						LoggerProxy.debug(`Response: ${JSON.stringify(response, null, 2)}`);
+						const response = await this.helpers.httpRequestWithAuthentication.call(this, 'teleFlowApi', requestConfig);
 						returnData.push({ json: response });
 					}
 				}

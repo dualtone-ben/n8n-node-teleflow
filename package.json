@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-teleflow",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "n8n community node for TeleFlow API",
   "keywords": [
     "n8n-community-node-package",

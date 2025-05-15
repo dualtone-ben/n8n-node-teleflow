@@ -89,7 +89,7 @@ const baseFields: INodeProperties[] = [
 				operation: ['get', 'update', 'delete'],
 			},
 		},
-		description: 'The ID of the resource',
+		description: 'The ID of the resource to get',
 	},
 	{
 		displayName: 'Fields',

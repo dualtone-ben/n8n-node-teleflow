@@ -4,6 +4,7 @@ import {
 	INodeType,
 	INodeTypeDescription,
 	NodeOperationError,
+	LoggerProxy,
 } from 'n8n-workflow';
 import { resourceOperations, resourceFields } from './ResourceDescription';
 
@@ -177,14 +178,17 @@ export class TeleFlow implements INodeType {
 				if (resource === 'account') {
 					if (operation === 'create') {
 						const name = this.getNodeParameter('name', i) as string;
-						const response = await this.helpers.request({
+						const requestConfig = {
 							method: 'POST',
 							url: `${baseUrl}/accounts`,
 							body: { name },
 							headers: {
 								'Authorization': `Bearer ${credentials.apiKey}`,
 							},
-						});
+						};
+						LoggerProxy.debug(`Request Config: ${JSON.stringify(requestConfig, null, 2)}`);
+						const response = await this.helpers.request(requestConfig);
+						LoggerProxy.debug(`Response: ${JSON.stringify(response, null, 2)}`);
 						returnData.push({ json: response });
 					}
 					if (operation === 'get') {
@@ -192,23 +196,45 @@ export class TeleFlow implements INodeType {
 						if (!id) {
 							throw new NodeOperationError(this.getNode(), 'ID is required for get operation');
 						}
-						const response = await this.helpers.request({
+						const fields = this.getNodeParameter('fields', i) as { field: { name: string; value: string }[] } | undefined;
+						const qs: Record<string, string> = {};
+						if (fields?.field) {
+							fields.field.forEach((field) => {
+								qs[field.name] = field.value;
+							});
+						}
+						const requestConfig = {
 							method: 'GET',
 							url: `${baseUrl}/accounts/${id}`,
 							headers: {
 								'Authorization': `Bearer ${credentials.apiKey}`,
 							},
-						});
+							qs,
+						};
+						LoggerProxy.debug(`Request Config: ${JSON.stringify(requestConfig, null, 2)}`);
+						const response = await this.helpers.request(requestConfig);
+						LoggerProxy.debug(`Response: ${JSON.stringify(response, null, 2)}`);
 						returnData.push({ json: response });
 					}
 					if (operation === 'getAll') {
-						const response = await this.helpers.request({
+						const fields = this.getNodeParameter('fields', i) as { field: { name: string; value: string }[] } | undefined;
+						const qs: Record<string, string> = {};
+						if (fields?.field) {
+							fields.field.forEach((field) => {
+								qs[field.name] = field.value;
+							});
+						}
+						const requestConfig = {
 							method: 'GET',
 							url: `${baseUrl}/accounts`,
 							headers: {
 								'Authorization': `Bearer ${credentials.apiKey}`,
 							},
-						});
+							qs,
+						};
+						LoggerProxy.debug(`Request Config: ${JSON.stringify(requestConfig, null, 2)}`);
+						const response = await this.helpers.request(requestConfig);
+						LoggerProxy.debug(`Response: ${JSON.stringify(response, null, 2)}`);
 						returnData.push({ json: response });
 					}
 					if (operation === 'update') {
@@ -217,14 +243,17 @@ export class TeleFlow implements INodeType {
 							throw new NodeOperationError(this.getNode(), 'ID is required for update operation');
 						}
 						const name = this.getNodeParameter('name', i) as string;
-						const response = await this.helpers.request({
+						const requestConfig = {
 							method: 'PUT',
 							url: `${baseUrl}/accounts/${id}`,
 							body: { name },
 							headers: {
 								'Authorization': `Bearer ${credentials.apiKey}`,
 							},
-						});
+						};
+						LoggerProxy.debug(`Request Config: ${JSON.stringify(requestConfig, null, 2)}`);
+						const response = await this.helpers.request(requestConfig);
+						LoggerProxy.debug(`Response: ${JSON.stringify(response, null, 2)}`);
 						returnData.push({ json: response });
 					}
 					if (operation === 'delete') {
@@ -232,17 +261,21 @@ export class TeleFlow implements INodeType {
 						if (!id) {
 							throw new NodeOperationError(this.getNode(), 'ID is required for delete operation');
 						}
-						const response = await this.helpers.request({
+						const requestConfig = {
 							method: 'DELETE',
 							url: `${baseUrl}/accounts/${id}`,
 							headers: {
 								'Authorization': `Bearer ${credentials.apiKey}`,
 							},
-						});
+						};
+						LoggerProxy.debug(`Request Config: ${JSON.stringify(requestConfig, null, 2)}`);
+						const response = await this.helpers.request(requestConfig);
+						LoggerProxy.debug(`Response: ${JSON.stringify(response, null, 2)}`);
 						returnData.push({ json: response });
 					}
 				}
 			} catch (error) {
+				LoggerProxy.error(`Error: ${error.message}`);
 				if (this.continueOnFail()) {
 					returnData.push({ json: { error: error.message } });
 					continue;

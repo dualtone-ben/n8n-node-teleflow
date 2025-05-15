@@ -1,6 +1,6 @@
 # n8n-nodes-teleflow
 
-![TeleFlow Logo](nodes/TeleFlow/teleflow.svg)
+![TeleFlow Logo](./nodes/TeleFlow/teleflow.svg)
 
 This is an n8n community node for integrating with the TeleFlow API. It provides nodes for managing telephony resources, VoIP services, and other TeleFlow platform features.
 

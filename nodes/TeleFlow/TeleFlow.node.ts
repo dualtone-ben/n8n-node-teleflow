@@ -3,6 +3,7 @@ import {
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
+	NodeOperationError,
 } from 'n8n-workflow';
 import { resourceOperations, resourceFields } from './ResourceDescription';
 
@@ -180,14 +181,23 @@ export class TeleFlow implements INodeType {
 							method: 'POST',
 							url: `${baseUrl}/accounts`,
 							body: { name },
+							headers: {
+								'Authorization': `Bearer ${credentials.apiKey}`,
+							},
 						});
 						returnData.push({ json: response });
 					}
 					if (operation === 'get') {
-						const accountId = this.getNodeParameter('id', i) as string;
+						const id = this.getNodeParameter('id', i) as string;
+						if (!id) {
+							throw new NodeOperationError(this.getNode(), 'ID is required for get operation');
+						}
 						const response = await this.helpers.request({
 							method: 'GET',
-							url: `${baseUrl}/accounts/${accountId}`,
+							url: `${baseUrl}/accounts/${id}`,
+							headers: {
+								'Authorization': `Bearer ${credentials.apiKey}`,
+							},
 						});
 						returnData.push({ json: response });
 					}
@@ -195,24 +205,39 @@ export class TeleFlow implements INodeType {
 						const response = await this.helpers.request({
 							method: 'GET',
 							url: `${baseUrl}/accounts`,
+							headers: {
+								'Authorization': `Bearer ${credentials.apiKey}`,
+							},
 						});
 						returnData.push({ json: response });
 					}
 					if (operation === 'update') {
-						const accountId = this.getNodeParameter('id', i) as string;
+						const id = this.getNodeParameter('id', i) as string;
+						if (!id) {
+							throw new NodeOperationError(this.getNode(), 'ID is required for update operation');
+						}
 						const name = this.getNodeParameter('name', i) as string;
 						const response = await this.helpers.request({
 							method: 'PUT',
-							url: `${baseUrl}/accounts/${accountId}`,
+							url: `${baseUrl}/accounts/${id}`,
 							body: { name },
+							headers: {
+								'Authorization': `Bearer ${credentials.apiKey}`,
+							},
 						});
 						returnData.push({ json: response });
 					}
 					if (operation === 'delete') {
-						const accountId = this.getNodeParameter('id', i) as string;
+						const id = this.getNodeParameter('id', i) as string;
+						if (!id) {
+							throw new NodeOperationError(this.getNode(), 'ID is required for delete operation');
+						}
 						const response = await this.helpers.request({
 							method: 'DELETE',
-							url: `${baseUrl}/accounts/${accountId}`,
+							url: `${baseUrl}/accounts/${id}`,
+							headers: {
+								'Authorization': `Bearer ${credentials.apiKey}`,
+							},
 						});
 						returnData.push({ json: response });
 					}

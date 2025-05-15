@@ -7,7 +7,7 @@ import {
 export class TeleFlowApi implements ICredentialType {
 	name = 'teleFlowApi';
 	displayName = 'TeleFlow API';
-	documentationUrl = 'https://docs.teleflow.com/api/authentication';
+	documentationUrl = 'https://docs.teleflow.app';
 	properties: INodeProperties[] = [
 		{
 			displayName: 'API Key',
@@ -24,7 +24,7 @@ export class TeleFlowApi implements ICredentialType {
 			displayName: 'Base URL',
 			name: 'baseUrl',
 			type: 'string',
-			default: 'https://api.teleflow.com/v1',
+			default: 'https://api.teleflow.app',
 			required: true,
 			description: 'The base URL for the TeleFlow API',
 		},

@@ -79,6 +79,19 @@ export const resourceOperations: INodeProperties[] = [
 
 const baseFields: INodeProperties[] = [
 	{
+		displayName: 'ID',
+		name: 'id',
+		type: 'string',
+		default: '',
+		required: true,
+		displayOptions: {
+			show: {
+				operation: ['get', 'update', 'delete'],
+			},
+		},
+		description: 'The ID of the resource',
+	},
+	{
 		displayName: 'Fields',
 		name: 'fields',
 		type: 'fixedCollection',

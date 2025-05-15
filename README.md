@@ -41,7 +41,7 @@ To use this node, you'll need to set up your TeleFlow API credentials. You can g
    - Can be found in your TeleFlow account settings
 
 2. **Base URL**: The base URL for the TeleFlow API
-   - Default: `https://api.teleflow.com/v1`
+   - Default: `https://api.teleflow.app`
    - Can be customized for different environments
 
 3. **Tenant ID** (Optional): For multi-tenant environments

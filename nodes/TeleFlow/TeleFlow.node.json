@@ -6,12 +6,12 @@
 	"resources": {
 		"credentialDocumentation": [
 			{
-				"url": "https://docs.teleflow.com/api/authentication"
+				"url": "https://docs.teleflow.app"
 			}
 		],
 		"primaryDocumentation": [
 			{
-				"url": "https://docs.teleflow.com/api"
+				"url": "https://docs.teleflow.app"
 			}
 		]
 	}

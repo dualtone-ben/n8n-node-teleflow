@@ -1,46 +1,106 @@
 ![Banner image](https://user-images.githubusercontent.com/10284570/173569848-c624317f-42b1-45a6-ab09-f0ea3c247648.png)
 
-# n8n-nodes-starter
+# n8n-nodes-teleflow
 
-This repo contains example nodes to help you get started building your own custom integrations for [n8n](n8n.io). It includes the node linter and other dependencies.
+This is an n8n community node for integrating with the TeleFlow API. It provides nodes for managing telephony resources, VoIP services, and other TeleFlow platform features.
 
-To make your custom node available to the community, you must create it as an npm package, and [submit it to the npm registry](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry).
+## Features
+
+- Manage TeleFlow accounts and users
+- Handle phone numbers and devices
+- Configure SIP trunks and carriers
+- Manage voice mail and call recordings
+- Access billing and reporting features
+- And much more!
+
+## Installation
+
+Follow these steps to install the node:
+
+1. Go to your n8n root directory
+2. Run the following command:
+```bash
+npm install n8n-nodes-teleflow
+```
+3. Restart n8n
 
 ## Prerequisites
 
-You need the following installed on your development machine:
+- n8n instance
+- Node.js version 20.15 or higher
+- TeleFlow API credentials
 
-* [git](https://git-scm.com/downloads)
-* Node.js and pnpm. Minimum version Node 20. You can find instructions on how to install both using nvm (Node Version Manager) for Linux, Mac, and WSL [here](https://github.com/nvm-sh/nvm). For Windows users, refer to Microsoft's guide to [Install NodeJS on Windows](https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-windows).
-* Install n8n with:
-  ```
-  npm install n8n -g
-  ```
-* Recommended: follow n8n's guide to [set up your development environment](https://docs.n8n.io/integrations/creating-nodes/build/node-development-environment/).
+## Authentication
 
-## Using this starter
+To use this node, you'll need to set up your TeleFlow API credentials. You can get these from your TeleFlow account dashboard.
 
-These are the basic steps for working with the starter. For detailed guidance on creating and publishing nodes, refer to the [documentation](https://docs.n8n.io/integrations/creating-nodes/).
+## Usage
 
-1. [Generate a new repository](https://github.com/n8n-io/n8n-nodes-starter/generate) from this template repository.
-2. Clone your new repo:
-   ```
-   git clone https://github.com/<your organization>/<your-repo-name>.git
-   ```
-3. Run `npm i` to install dependencies.
-4. Open the project in your editor.
-5. Browse the examples in `/nodes` and `/credentials`. Modify the examples, or replace them with your own nodes.
-6. Update the `package.json` to match your details.
-7. Run `npm lint` to check for errors or `npm lintfix` to automatically fix errors when possible.
-8. Test your node locally. Refer to [Run your node locally](https://docs.n8n.io/integrations/creating-nodes/test/run-node-locally/) for guidance.
-9. Replace this README with documentation for your node. Use the [README_TEMPLATE](README_TEMPLATE.md) to get started.
-10. Update the LICENSE file to use your details.
-11. [Publish](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry) your package to npm.
+After installation, you'll find the TeleFlow node in the n8n node panel. The node supports the following operations:
 
-## More information
+- Create, read, update, and delete resources
+- Manage accounts and users
+- Handle phone numbers and devices
+- Configure SIP trunks
+- Access billing information
+- Generate reports
 
-Refer to our [documentation on creating nodes](https://docs.n8n.io/integrations/creating-nodes/) for detailed information on building your own nodes.
+## Resources
+
+The node supports the following TeleFlow resources:
+
+- Account
+- Account Audit
+- Billing Entry
+- Call Detail Record
+- Carrier
+- Device
+- Device Template
+- Email Template
+- Feature Code
+- File
+- Flow
+- Flow Template
+- LCR
+- Mobile SIM
+- Number Port
+- Phone Number
+- Provision
+- Report
+- Reseller
+- SIP Trunk
+- Tariff
+- Tariff Code
+- Tariff Profile
+- Tenant
+- Tenant Audit
+- Transcription
+- User
+- Voice
+- Voice Mail Message
+
+## Development
+
+To contribute to this project:
+
+1. Clone the repository
+2. Install dependencies:
+```bash
+npm install
+```
+3. Build the project:
+```bash
+npm run build
+```
+4. Run tests:
+```bash
+npm test
+```
 
 ## License
 
-[MIT](https://github.com/n8n-io/n8n-nodes-starter/blob/master/LICENSE.md)
+[MIT](LICENSE.md)
+
+## Support
+
+For support, please open an issue in the [GitHub repository](https://github.com/dualtone-ben/n8n-nodes-teleflow).
